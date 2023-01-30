@@ -124,5 +124,7 @@ dmypy.json
 .pyre/
 
 
-# customized
+# customized test
+# test again
 **/data/raw/
+.DS_Store

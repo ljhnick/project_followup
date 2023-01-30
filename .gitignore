@@ -125,6 +125,10 @@ dmypy.json
 
 
 # customized test
+<<<<<<< HEAD
 # test again
 **/data/raw/
 .DS_Store
+=======
+**/data/raw/
+>>>>>>> nick-local

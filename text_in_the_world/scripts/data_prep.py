@@ -1,13 +1,28 @@
-from textInTheWorld.utils.read_csv import CSVReader
+from textInTheWorld.utils.file_reader import CSVReader
 from textInTheWorld.data.process import RawDataProcess
+from textInTheWorld.ocr.image_processer import TextReaderOCR
 from pathlib import Path
+import textInTheWorld.utils.handler as handler
 
-def main():
+def multiple_entry(): # this focuses on the 36 images
     root = Path(__file__).parent.parent
     data_folder = root / 'data'
 
     csvReader = CSVReader(data_folder)
     processed_data = RawDataProcess(csvReader.data_list)
 
+def user_data():
+    # read data first
+    data_path = '/Users/ljhnick/Meta/project_followup/text_in_the_world/data/clean/data_participants.json'
+    data = handler.read_json(data_path)
+
+    ocrReader = TextReaderOCR()
+    for entry in data['data']:
+        img_path = entry['img_path']
+        result = ocrReader.read_raw(img_path)
+        print(result)
+        print(1)
+
+
 if __name__ == '__main__':
-    main()
+    user_data()

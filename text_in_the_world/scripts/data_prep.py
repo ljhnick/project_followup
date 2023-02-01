@@ -3,6 +3,7 @@ from textInTheWorld.data.process import RawDataProcess
 from textInTheWorld.ocr.image_processer import TextReaderOCR
 from pathlib import Path
 import textInTheWorld.utils.handler as handler
+from tqdm import tqdm
 
 def multiple_entry(): # this focuses on the 36 images
     root = Path(__file__).parent.parent
@@ -17,11 +18,11 @@ def user_data():
     data = handler.read_json(data_path)
 
     ocrReader = TextReaderOCR()
-    for entry in data['data']:
+    for entry in tqdm(data['data']):
         img_path = entry['img_path']
         result = ocrReader.read_raw(img_path)
-        print(result)
-        print(1)
+        description = entry['description']
+        ocrReader.filter_text(result, description)
 
 
 if __name__ == '__main__':

@@ -1,13 +1,18 @@
 import cv2
 import easyocr
 from textInTheWorld.gpt3.wrapper import LLMWrapper
-# import textInTheWorld.utils.handler as handler
+import json
+import textInTheWorld.utils.handler as handler
 
 class TextReaderOCR():
+    savepath_ = '/Users/ljhnick/Meta/project_followup/text_in_the_world/data/clean/data_user_filtered.json'
+    
     def __init__(self):
         # self.root_path = rootpath
         self.reader = easyocr.Reader(['en'], quantize=False)
         self.gpt3 = LLMWrapper()
+        self.prompt_generator = PromptGenerator()
+        self.data_processed = {'data': []}
      
     def _read_image(self, filepath, max_resolution=1500):
         img = cv2.imread(filepath)
@@ -28,16 +33,57 @@ class TextReaderOCR():
         result = self.read_text(img)
         return result
 
-    def filter_text(self, text):
-        pass
+    def filter_text(self, text, description):
+        result = self.prompt_generator.generate(text, description)
+        result_gpt = self.gpt3.text_completion(result)
+
+        try:
+            data_json = json.loads(result_gpt)
+            data_json['raw_text'] = text
+            data_json['description'] = description
+            self.data_processed['data'].append(data_json)
+        except:
+            return
+
+        # save the data
+        handler.save_json(self.data_processed, self.savepath_)
+        # print(data_json)
 
 
 class PromptGenerator():
-    
-    def __init__(self):
-        pass
+    coding_keys = ["text", "places", "activities", "actions"]
 
-    
+    def __init__(self):
+        self.prompt = self.initilize_prompt(self.coding_keys)
+        # self.text = text
+        # self.description = description
+
+    def initilize_prompt(self, coding_keys):
+        prompt = 'Clean the following text recognized from an image, including fixing the typo, removing unmeaningful phrases and complete the sentence. Also predict possible places the text is on, what is the activity and what the user would like to do with it after taking the image based on the user description of the photo. The output should be in JSON format with the following keys: '
+        for key in coding_keys:
+            prompt = prompt + f'"{key}", ' 
+        prompt = prompt[:-2]
+        prompt += '.\n\n'
+        return prompt
+
+    def generate(self, text, description):
+        self.text = text
+        self.description = description
+        
+        prompt = self.prompt
+        prompt = prompt + "Text: "
+        for t in text:
+            prompt = prompt + f"'{t}', "
+        prompt = prompt[:-2]
+        prompt += '\n\nUser Description: '
+        prompt += description
+        prompt = prompt + '\n\nResult:'
+
+        self.generated_prompt = prompt
+        return prompt
+        
+
+
 
 
 

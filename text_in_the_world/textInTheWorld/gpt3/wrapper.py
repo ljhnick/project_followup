@@ -11,7 +11,7 @@ class LLMWrapper():
             engine=model,
             prompt=prompt,
             temperature=0,
-            max_tokens=256,
+            max_tokens=512,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0

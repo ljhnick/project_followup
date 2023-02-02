@@ -4,6 +4,10 @@ from textInTheWorld.ocr.image_processer import TextReaderOCR
 from pathlib import Path
 import textInTheWorld.utils.handler as handler
 from tqdm import tqdm
+import os
+import openai
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def multiple_entry(): # this focuses on the 36 images
     root = Path(__file__).parent.parent
@@ -20,9 +24,14 @@ def user_data():
     ocrReader = TextReaderOCR()
     for entry in tqdm(data['data']):
         img_path = entry['img_path']
-        result = ocrReader.read_raw(img_path)
+        try:
+            result = ocrReader.read_raw(img_path)
+        except:
+            print('cannot read text')
+            continue
         description = entry['description']
-        ocrReader.filter_text(result, description)
+        path = entry['img_path']
+        ocrReader.filter_text(result, description, path)
 
 
 if __name__ == '__main__':

@@ -98,7 +98,7 @@ class RawDataProcesserSingle():
                     cat_str = cat_str[1:]
                 self._update_result(result, cat_str.lower())
 
-            time.sleep(0.5)
+            # time.sleep(0.5)
         
         saved_results = self._read_results()
         saved_results['results'].append(result)

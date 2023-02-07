@@ -147,7 +147,8 @@ class PromptGenerator():
 
 
 def main():
-    filepath = '/Users/ljhnick/Meta/project_followup/text_in_the_world/data/raw/img/1/Chris J-15223498-2350587-281452.jpg'
+    filepath = '/Users/ljhnick/Downloads/G47OBIB5XFCEDERI3YH4VQD65Q.jpeg'
+    detect_text(filepath)
 
     readerOCR = TextReaderOCR(filepath)
     img = cv2.imread(filepath)

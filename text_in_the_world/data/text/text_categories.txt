@@ -1,0 +1,10 @@
+Category list: ['Save for later', 'Share/Show', 'Post/Publish online', 'Buy', 'Locate', 'Others', 'Search']
+Max number of categories: [NUM_OF_CATEGORIES]
+Input: {'text': 'komucky #bbnbound this is my moment!', 'context': {'place': 'social media', 'activity': 'congratulating a friend'}}
+Output: {"category": ['Save for later']}
+
+Input: {'text': 'limited time special sale chair 840.00 reg 1399.00 cheriel light grey available in sapphire and light grey 100% leather web kt: 13620511 special ask about worrynomore furniture protection extra discounts do not apply mo174', 'context': {'place': 'store', 'activity': 'shopping'}}
+Output: {'category': ['Search']}
+
+Input: [INPUT_TEXT]
+Output:

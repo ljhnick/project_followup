@@ -1,7 +1,11 @@
 import json
+import random
 from pathlib import Path
 import textInTheWorld.utils.handler as handler
+import textInTheWorld.utils.data_tool as dt
+from textInTheWorld.data.category_handler import CategoryHandler
 from random import shuffle
+import pandas as pd
 
 class TrainingDataPrep():
 
@@ -130,20 +134,6 @@ class TrainingDataPrepUserData():
             prompt += activity
         prompt += '\n\nOutput:\n\n###\n\n'
 
-        # self.prompt = prompt
-
-        # completion = description
-        # completion = ""
-        # if actions.__class__ == list:
-        #     for action in actions:
-        #         completion += action
-        #         completion += ";"
-        #     completion = completion[:-1]
-        #     completion += '.'
-        # else:
-        #     completion += actions
-        # completion += "END"
-
         completion = ""
         if categories.__class__ == list:
             for cat in categories:
@@ -158,3 +148,67 @@ class TrainingDataPrepUserData():
         entry = {'prompt': prompt, 'completion': completion}
         return entry
 
+class TrainingDataLabeled():
+    _catpath = '/Users/ljhnick/Meta/project_followup/text_in_the_world/textInTheWorld/data/categories.json'
+    def __init__(self):
+        self.cat_handler = CategoryHandler(self._catpath)
+
+    def load_raw(self, path):
+        self.data_path = path
+        self.data_raw = handler.read_json(path)
+
+    def generate_data_single(self, text, cat_id, context, with_context=True):
+        prompt = {}
+        prompt['text'] = text
+        if with_context:
+            prompt['context'] = context
+
+        # prompt = json.dumps(prompt)
+
+        completion = f"{cat_id}"
+
+        # prompt, completion = dt.fine_tune_data_tool(prompt, completion)
+
+        result = {
+            'prompt': prompt,
+            'completion': completion
+        }
+        return result
+
+    def split_data(self, data, ratio, train_path, val_path, whole_path):
+        random.shuffle(data)
+        train_num = int(len(data)*(1-ratio))
+        train_data = data[:train_num]
+        val_data = data[train_num:]
+
+        df_train = pd.DataFrame(train_data)
+        df_val = pd.DataFrame(val_data)
+        print(df_train['completion'].value_counts())
+        print(df_val['completion'].value_counts())
+
+        handler.save_json(train_data, train_path)
+        handler.save_json(val_data, val_path)
+        handler.save_json(val_data, whole_path)
+
+    def prepare_data(self, test_ratio=0.15, with_context=True):
+        dataset = []
+        for data in self.data_raw:
+            text = data['text']
+            text = text.replace('\n', ' ')
+            context = data['context']
+            action = data['action']
+            cat_id = self.cat_handler.get_cat_id(action)
+            
+            dataset.append(self.generate_data_single(text, cat_id, context, with_context))
+        
+        df = pd.DataFrame(dataset)
+        df_column = df['completion']
+        print(df_column.value_counts())
+        train_path = '/Users/ljhnick/Meta/project_followup/text_in_the_world/data/train/labeled/train.json'
+        val_path = '/Users/ljhnick/Meta/project_followup/text_in_the_world/data/train/labeled/val.json'
+        whole_path = '/Users/ljhnick/Meta/project_followup/text_in_the_world/data/train/labeled/whole.json'
+        self.split_data(dataset, test_ratio, train_path, val_path, whole_path)
+        
+    
+
+        

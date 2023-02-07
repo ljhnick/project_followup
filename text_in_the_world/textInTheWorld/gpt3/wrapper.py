@@ -6,19 +6,43 @@ class LLMWrapper():
     def __init__(self):
         self.api_key = os.getenv("OPENAI_API_KEY")
     
-    def text_completion(self, prompt, model='text-davinci-003', max_token=512):
+    def text_completion(self, prompt, model='text-davinci-003', max_token=1024):
+        is_success = False
+        while not is_success:
+            try:
+                response = openai.Completion.create(
+                    engine=model,
+                    prompt=prompt,
+                    temperature=0,
+                    max_tokens=max_token,
+                    top_p=1,
+                    frequency_penalty=0,
+                    presence_penalty=0
+                )
+                is_success = True
+            except Exception as e:
+                print(e)
+
+        
+
+        response_text = response.choices[0].text
+        return response_text
+
+    def text_classification(self, prompt, model='text-davinci-003', max_token=1, num_of_class=2):
         response = openai.Completion.create(
             engine=model,
             prompt=prompt,
-            temperature=0.5,
+            temperature=0,
             max_tokens=max_token,
+            logprobs=num_of_class,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0
         )
+        
+        logprobs = response['choices'][0]['logprobs']['top_logprobs'][0]
+        return response, logprobs
 
-        response_text = response.choices[0].text
-        return response_text
 
 
 class LLMClassifier(LLMWrapper):

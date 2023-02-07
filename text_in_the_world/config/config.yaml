@@ -1,0 +1,6 @@
+categories: 
+  path: '/Users/ljhnick/Meta/project_followup/text_in_the_world/textInTheWorld/data/categories.json'
+
+trained_models:
+  ada: ada:ft-personal:text-in-the-world-labeled-2023-02-07-20-30-53
+  davinci: davinci:ft-personal:text-in-the-world-labeled-2023-02-07-22-27-45

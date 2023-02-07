@@ -1,12 +1,17 @@
 {
     "categories" :[
-        "remember and save for later",
-        "share it on social media",
-        "send it to someone",
-        "capture the moment",
-        "look for more information",
-        "set a reminder",
-        "translate",
-        "others"
+        {"name": "Augmenting text", "id": 0, "ignore": true},
+        {"name": "Buy", "id": 1, "ignore": false},
+        {"name": "Calculate", "id": 2, "ignore": true},
+        {"name": "Locate", "id": 3, "ignore": false},
+        {"name": "Plan", "id": 4, "ignore": true},
+        {"name": "Ponder/Reflect", "id": 5, "ignore": true},
+        {"name": "Post/Publish online", "id": 6, "ignore": false},
+        {"name": "Research", "id": 7, "ignore": false},
+        {"name": "Save for later", "id": 8, "ignore": false},
+        {"name": "Search", "id": 9, "ignore": false},
+        {"name": "Share/Show", "id": 10, "ignore": false},
+        {"name": "Translate", "id": 11, "ignore": true},
+        {"name": "Others", "id": 12, "ignore": false}
     ]
 }

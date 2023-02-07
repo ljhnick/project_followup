@@ -1,0 +1,15 @@
+Text: So I'm actually not a hundred percent sure why I took that photo. I think I might have just been  sharing with someone a joke about cantaloves. But from the picture, I get image of what the price is  of cantaloupe, the Trader Joe's. With this photo, I mean, next steps would be to send it to someone if  they wanted that information or if they wanted if it would be a good joke for them for some reason  or for various other reasons.  
+
+Context: {"place": "Trader Joe's", "activity": "grocery shopping"}
+
+Text: So the reason for that picture and why I took that picture was because it had a date for my  husband's doctor's appointment that he had coming up, and he actually needed it yesterday. The  appointment was going to be at eleven, so midday. And So I remember writing it down the day  that I made the appointment for him. And so what's included in the text is the address of the clinic  because it was a new clinic he had never been to and also the time. And so the next potential steps  when I took the original picture was to send it to my husband whenever he asked for it because we  both are very forgetful. So, I remember that the day that I scheduled the appointment, I wrote it  down. And he told me not to send him the picture of the text until he needed it, which was on the  day off. He was going to go to the appointment. So he knew the location of the clinic and also the  time that he was supposed to be at the clinic.
+
+Context: {"place": "piece of paper", "activity": "writing"}
+
+Text: So when I took this photo, I was at an outdoor concert and they had a bunch of different, like, kind of food and drink vendors all around my friend was saving our space with our blanket and I went to go kinda scout out all the food options and she had specifically said that she wanted snow cones from a snow cone place. So I went and there was this long line and I couldn't like, you can see it's kinda hard to read with the neon colors. So I went up I got out of the line. I went up I took a close-up photo of the flavors and the prices and all that kind of stuff. And so then I got back in line and I sent it to my friend so she could let me know what she wanted based on what that photo was. And then I also looked at the photo because I couldn't read the sign from where I was in line to figure out what I wanted as well. So it was on the side of a of a snow cone truck, and then we took that information and we decided what flavors and sizes of snow cones we wanted. It was
+
+Context: {"place": "outdoor concert", "activity": "buying snacks"}
+
+Text: [INPUT_TEXT]
+
+Context:

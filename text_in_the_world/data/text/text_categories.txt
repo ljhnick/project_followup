@@ -1,5 +1,5 @@
 Category list: ['Save for later', 'Share/Show', 'Post/Publish online', 'Buy', 'Locate', 'Others', 'Search']
-Max number of categories: [NUM_OF_CATEGORIES]
+Max number of predicted categories: [NUM_OF_CATEGORIES]
 Input: {'text': 'komucky #bbnbound this is my moment!', 'context': {'place': 'social media', 'activity': 'congratulating a friend'}}
 Output: {"category": ['Save for later']}
 
